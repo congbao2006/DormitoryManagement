@@ -1,0 +1,255 @@
+<%- include('../partials/header') %>
+
+<section class="hero mb-4">
+  <h1 class="display-6 fw-bold">Bảng điều khiển quản lý</h1>
+  <p class="lead mb-0">Theo dõi tổng quan hoạt động ký túc xá theo thời gian thực.</p>
+</section>
+
+<%
+  const role = currentUser?.role;
+  const canAccessStaff = role === 'Admin';
+  const canAccessFacilities = role === 'Admin' || role === 'NhanVien';
+  const occupancyRate = stats.sinhVien > 0 ? Math.min(100, Math.round((stats.sinhVien / (stats.sinhVien + stats.phongConCho)) * 100)) : 0;
+  const contractHealth = stats.hopDong > 0 ? Math.min(100, Math.round((stats.hopDong / (stats.hopDong + Math.max(1, stats.yeuCau))) * 100)) : 0;
+%>
+
+<div class="d-none" aria-hidden="true">
+  <p class="stat-number"><%= stats.sinhVien %></p>
+  <p class="stat-number"><%= stats.phongConCho %></p>
+  <p class="stat-number"><%= stats.hopDong %></p>
+  <p class="stat-number"><%= stats.hoaDon %></p>
+  <p class="stat-number"><%= stats.nhanVien %></p>
+  <p class="stat-number"><%= stats.toaNha %></p>
+  <p class="stat-number"><%= stats.yeuCau %></p>
+  <p class="stat-number"><%= stats.taiSan %></p>
+</div>
+
+<div class="dashboard-page">
+<section class="dashboard-hero mb-4">
+  <div class="row g-3 align-items-stretch">
+    <div class="col-lg-8">
+      <div class="dashboard-hero-main h-100">
+        <p class="dashboard-kicker mb-2">Trung tâm điều hành</p>
+        <h2 class="mb-2">Toàn cảnh vận hành ký túc xá</h2>
+        <p class="text-muted mb-3">Theo dõi tức thời chỉ số lưu trú, tài sản, hợp đồng và yêu cầu để xử lý nhanh trong ngày.</p>
+        <div class="insight-list">
+          <span class="insight-pill">Đang ở: <strong><%= stats.sinhVien %></strong> sinh viên</span>
+          <span class="insight-pill">Còn trống: <strong><%= stats.phongConCho %></strong> phòng</span>
+          <span class="insight-pill">Hợp đồng: <strong><%= stats.hopDong %></strong></span>
+          <span class="insight-pill">Yêu cầu mở: <strong><%= stats.yeuCau %></strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="dashboard-hero-side h-100">
+        <h3 class="h5 mb-3">Quick Actions</h3>
+        <div class="quick-grid">
+          <a class="quick-link" href="/sinhvien"><i class="fas fa-user-plus me-2"></i>Thêm sinh viên</a>
+          <a class="quick-link" href="<%= canAccessFacilities ? '/phong' : '#' %>"><i class="fas fa-door-open me-2"></i>Quản lý phòng</a>
+          <a class="quick-link" href="/hopdong"><i class="fas fa-file-signature me-2"></i>Xử lý hợp đồng</a>
+          <a class="quick-link" href="/hoadon"><i class="fas fa-file-invoice-dollar me-2"></i>Theo dõi hóa đơn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="row g-3">
+  <div class="col-md-6 col-lg-3">
+    <div class="small-box bg-primary h-100 mb-0">
+      <div class="inner">
+        <h3><%= stats.sinhVien %></h3>
+        <p>Sinh viên</p>
+      </div>
+      <div class="icon"><i class="fas fa-user-graduate"></i></div>
+      <a href="/sinhvien" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="small-box bg-success h-100 mb-0">
+      <div class="inner">
+        <h3><%= stats.phongConCho %></h3>
+        <p>Phòng còn chỗ</p>
+      </div>
+      <div class="icon"><i class="fas fa-door-open"></i></div>
+      <a href="<%= canAccessFacilities ? '/phong' : '#' %>" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="small-box bg-info h-100 mb-0">
+      <div class="inner">
+        <h3><%= stats.hopDong %></h3>
+        <p>Hợp đồng</p>
+      </div>
+      <div class="icon"><i class="fas fa-file-signature"></i></div>
+      <a href="/hopdong" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="small-box bg-warning h-100 mb-0">
+      <div class="inner">
+        <h3><%= stats.hoaDon %></h3>
+        <p>Hóa đơn</p>
+      </div>
+      <div class="icon"><i class="fas fa-file-invoice-dollar"></i></div>
+      <a href="/hoadon" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mt-1">
+  <div class="col-md-6 col-lg-3">
+    <div class="small-box bg-danger h-100 mb-0">
+      <div class="inner">
+        <h3><%= stats.nhanVien %></h3>
+        <p>Nhân viên</p>
+      </div>
+      <div class="icon"><i class="fas fa-users-gear"></i></div>
+      <a href="<%= canAccessStaff ? '/nhanvien' : '#' %>" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="small-box bg-secondary h-100 mb-0">
+      <div class="inner">
+        <h3><%= stats.toaNha %></h3>
+        <p>Tòa nhà</p>
+      </div>
+      <div class="icon"><i class="fas fa-city"></i></div>
+      <a href="<%= canAccessFacilities ? '/toanha' : '#' %>" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="small-box bg-indigo h-100 mb-0">
+      <div class="inner">
+        <h3><%= stats.yeuCau %></h3>
+        <p>Yêu cầu sửa chữa</p>
+      </div>
+      <div class="icon"><i class="fas fa-screwdriver-wrench"></i></div>
+      <a href="/yeucau" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="small-box bg-teal h-100 mb-0">
+      <div class="inner">
+        <h3><%= stats.taiSan %></h3>
+        <p>Tài sản</p>
+      </div>
+      <div class="icon"><i class="fas fa-toolbox"></i></div>
+      <a href="<%= canAccessFacilities ? '/taisan' : '#' %>" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mt-1">
+  <div class="col-lg-7">
+    <div class="card dashboard-panel h-100">
+      <div class="card-header border-0 d-flex justify-content-between align-items-center">
+        <h3 class="card-title m-0">Xu hướng vận hành</h3>
+        <span class="badge badge-soft">Bản mô phỏng theo dữ liệu hiện tại</span>
+      </div>
+      <div class="card-body">
+        <div class="trend-chart-wrap">
+          <canvas id="dashboardTrendChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="card dashboard-panel h-100">
+      <div class="card-header border-0">
+        <h3 class="card-title m-0">Sức khỏe hệ thống</h3>
+      </div>
+      <div class="card-body">
+        <div class="progress-block">
+          <div class="d-flex justify-content-between mb-1"><span>Công suất lưu trú</span><strong><%= occupancyRate %>%</strong></div>
+          <div class="progress progress-sm"><div class="progress-bar bg-primary" style="width: <%= occupancyRate %>%"></div></div>
+        </div>
+        <div class="progress-block">
+          <div class="d-flex justify-content-between mb-1"><span>Tỷ lệ ổn định hợp đồng</span><strong><%= contractHealth %>%</strong></div>
+          <div class="progress progress-sm"><div class="progress-bar bg-success" style="width: <%= contractHealth %>%"></div></div>
+        </div>
+        <div class="progress-block mb-0">
+          <div class="d-flex justify-content-between mb-1"><span>Kiểm soát tài sản</span><strong><%= Math.min(100, 60 + stats.taiSan * 5) %>%</strong></div>
+          <div class="progress progress-sm"><div class="progress-bar bg-info" style="width: <%= Math.min(100, 60 + stats.taiSan * 5) %>%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="row g-3 mt-1">
+  <div class="col-lg-6">
+    <div class="card dashboard-panel h-100">
+      <div class="card-header border-0">
+        <h3 class="card-title m-0">Timeline xử lý</h3>
+      </div>
+      <div class="card-body">
+        <ul class="activity-list">
+          <li><span class="dot bg-primary"></span><div><strong>Hợp đồng đang hoạt động</strong><p><%= stats.hopDong %> hợp đồng đang cần theo dõi định kỳ.</p></div></li>
+          <li><span class="dot bg-warning"></span><div><strong>Hóa đơn cần rà soát</strong><p><%= stats.hoaDon %> hóa đơn xuất hiện trên hệ thống.</p></div></li>
+          <li><span class="dot bg-danger"></span><div><strong>Yêu cầu sửa chữa</strong><p><%= stats.yeuCau %> yêu cầu cần phân công xử lý.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card dashboard-panel h-100">
+      <div class="card-header border-0">
+        <h3 class="card-title m-0">Phân bổ module</h3>
+      </div>
+      <div class="card-body">
+        <div class="module-grid">
+          <a href="/sinhvien" class="module-tile"><i class="fas fa-user-graduate"></i><span>Sinh viên</span></a>
+          <a href="<%= canAccessFacilities ? '/phong' : '#' %>" class="module-tile"><i class="fas fa-door-open"></i><span>Phòng</span></a>
+          <a href="/hopdong" class="module-tile"><i class="fas fa-file-signature"></i><span>Hợp đồng</span></a>
+          <a href="/hoadon" class="module-tile"><i class="fas fa-file-invoice-dollar"></i><span>Hóa đơn</span></a>
+          <a href="/yeucau" class="module-tile"><i class="fas fa-screwdriver-wrench"></i><span>Yêu cầu</span></a>
+          <a href="<%= canAccessFacilities ? '/taisan' : '#' %>" class="module-tile"><i class="fas fa-toolbox"></i><span>Tài sản</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+  (() => {
+    const canvas = document.getElementById('dashboardTrendChart');
+    if (!canvas || typeof Chart === 'undefined') {
+      return;
+    }
+
+    const base = [<%= stats.sinhVien %>, <%= stats.hopDong %>, <%= stats.hoaDon %>, <%= stats.yeuCau %>, <%= stats.taiSan %>];
+    const dataset = base.map((v, idx) => Math.max(0, v + (idx % 2 === 0 ? 1 : -1)));
+
+    new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels: ['T2', 'T3', 'T4', 'T5', 'T6'],
+        datasets: [{
+          label: 'Khối lượng vận hành',
+          data: dataset,
+          borderColor: '#2f7de6',
+          backgroundColor: 'rgba(47, 125, 230, 0.12)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.35,
+          pointRadius: 3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, ticks: { precision: 0 } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+  })();
+</script>
+
+<%- include('../partials/footer') %>

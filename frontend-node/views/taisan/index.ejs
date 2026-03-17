@@ -1,0 +1,35 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3 crud-title">Quản lý Tài sản</h2>
+
+<form class="row g-2 mb-4 crud-form" method="post" action="/taisan">
+  <div class="col-md-2"><input class="form-control" name="maTaiSan" placeholder="Mã TS" required /></div>
+  <div class="col-md-4"><input class="form-control" name="tenTaiSan" placeholder="Tên tài sản" required /></div>
+  <div class="col-md-3"><input class="form-control" name="tinhTrang" value="Tot" required /></div>
+  <div class="col-md-3"><input class="form-control" type="date" name="ngayMua" required /></div>
+  <div class="col-12"><button class="btn btn-primary">Thêm Tài sản</button></div>
+</form>
+
+<div class="table-responsive crud-table-wrap">
+  <table class="table table-striped table-hover">
+    <thead><tr><th>Mã</th><th>Tên tài sản</th><th>Tình trạng</th><th>Ngày mua</th><th>Thao tác</th></tr></thead>
+    <tbody>
+      <% items.forEach(i => { %>
+      <tr>
+        <td><%= i.maTaiSan %></td>
+        <td><%= i.tenTaiSan %></td>
+        <td><%= i.tinhTrang %></td>
+        <td><%= new Date(i.ngayMua).toLocaleDateString('vi-VN') %></td>
+        <td>
+          <a class="btn btn-sm btn-outline-primary me-2" href="/taisan/<%= i.maTaiSan %>/edit">Sửa</a>
+          <form method="post" action="/taisan/<%= i.maTaiSan %>/delete">
+            <button class="btn btn-sm btn-outline-danger">Xóa</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>

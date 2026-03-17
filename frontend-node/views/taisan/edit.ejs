@@ -1,0 +1,13 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3 crud-title">Cập nhật Tài sản</h2>
+
+<form class="row g-2 mb-4 crud-form" method="post" action="/taisan/<%= item.maTaiSan %>/edit">
+  <div class="col-md-2"><input class="form-control" value="<%= item.maTaiSan %>" disabled /></div>
+  <div class="col-md-4"><input class="form-control" name="tenTaiSan" value="<%= item.tenTaiSan %>" required /></div>
+  <div class="col-md-3"><input class="form-control" name="tinhTrang" value="<%= item.tinhTrang %>" required /></div>
+  <div class="col-md-3"><input class="form-control" type="date" name="ngayMua" value="<%= item.ngayMua ? item.ngayMua.split('T')[0] : '' %>" required /></div>
+  <div class="col-12 d-flex gap-2"><button class="btn btn-primary">Lưu</button><a class="btn btn-outline-secondary" href="/taisan">Hủy</a></div>
+</form>
+
+<%- include('../partials/footer') %>

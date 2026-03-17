@@ -1,0 +1,28 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3 crud-title">Cập nhật Hợp đồng</h2>
+
+<form class="row g-2 mb-4 crud-form" method="post" action="/hopdong/<%= item.maHopDong %>/edit">
+  <div class="col-md-2"><input class="form-control" value="<%= item.maHopDong %>" disabled /></div>
+  <div class="col-md-2">
+    <select class="form-select" name="maSinhVien" required>
+      <% (sinhViens || []).forEach(sv => { %>
+      <option value="<%= sv.maSinhVien %>" <%= item.maSinhVien === sv.maSinhVien ? 'selected' : '' %>><%= sv.maSinhVien %> - <%= sv.hoTen %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <select class="form-select" name="maPhong" required>
+      <% (phongs || []).forEach(phong => { %>
+      <option value="<%= phong.maPhong %>" <%= item.maPhong === phong.maPhong ? 'selected' : '' %>><%= phong.maPhong %> - <%= phong.soPhong %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="col-md-2"><input class="form-control" type="date" name="ngayBatDau" value="<%= item.ngayBatDau ? item.ngayBatDau.split('T')[0] : '' %>" required /></div>
+  <div class="col-md-2"><input class="form-control" type="date" name="ngayKetThuc" value="<%= item.ngayKetThuc ? item.ngayKetThuc.split('T')[0] : '' %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="tienDatCoc" value="<%= item.tienDatCoc %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="trangThai" value="<%= item.trangThai %>" required /></div>
+  <div class="col-12 d-flex gap-2"><button class="btn btn-primary">Lưu</button><a class="btn btn-outline-secondary" href="/hopdong">Hủy</a></div>
+</form>
+
+<%- include('../partials/footer') %>

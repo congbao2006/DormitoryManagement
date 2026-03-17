@@ -1,0 +1,38 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3 crud-title">Quản lý Thanh toán</h2>
+
+<form class="row g-2 mb-4 crud-form" method="post" action="/thanhtoan">
+  <div class="col-md-2"><input class="form-control" name="maThanhToan" placeholder="Mã TT" required /></div>
+  <div class="col-md-2"><input class="form-control" name="maHoaDon" placeholder="Mã Hóa đơn" required /></div>
+  <div class="col-md-3"><input class="form-control" type="date" name="ngayThanhToan" required /></div>
+  <div class="col-md-3"><input class="form-control" name="soTien" placeholder="Số tiền" required /></div>
+  <div class="col-md-3"><input class="form-control" name="phuongThuc" value="ChuyenKhoan" required /></div>
+  <div class="col-12"><button class="btn btn-primary">Thêm Thanh toán</button></div>
+</form>
+
+<div class="table-responsive crud-table-wrap">
+  <table class="table table-striped table-hover">
+    <thead><tr><th>Mã</th><th>Ngày thanh toán</th><th>Số tiền</th><th>Phương thức</th><th>Thao tác</th></tr></thead>
+    <tbody>
+      <% items.forEach(i => { %>
+      <tr>
+        <td><%= i.maThanhToan %></td>
+        <td><%= new Date(i.ngayThanhToan).toLocaleDateString('vi-VN') %></td>
+        <td><%= i.soTien %></td>
+        <td><%= i.phuongThuc %></td>
+        <td>
+          <% if (!currentUser || currentUser.role !== 'SinhVien') { %>
+          <a class="btn btn-sm btn-outline-primary me-2" href="/thanhtoan/<%= i.maThanhToan %>/edit">Sửa</a>
+          <form method="post" action="/thanhtoan/<%= i.maThanhToan %>/delete">
+            <button class="btn btn-sm btn-outline-danger">Xóa</button>
+          </form>
+          <% } %>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3 crud-title">Cập nhật Nhân viên</h2>
+
+<form class="row g-2 mb-4 crud-form" method="post" action="/nhanvien/<%= item.maNhanVien %>/edit">
+  <div class="col-md-2"><input class="form-control" value="<%= item.maNhanVien %>" disabled /></div>
+  <div class="col-md-3"><input class="form-control" name="hoTen" value="<%= item.hoTen %>" required /></div>
+  <div class="col-md-2"><input class="form-control" type="date" name="ngaySinh" value="<%= item.ngaySinh ? item.ngaySinh.split('T')[0] : '' %>" required /></div>
+  <div class="col-md-1"><input class="form-control" name="gioiTinh" value="<%= item.gioiTinh %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="soDienThoai" value="<%= item.soDienThoai %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="email" value="<%= item.email %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="cccd" value="<%= item.cccd %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="trangThai" value="<%= item.trangThai %>" required /></div>
+  <div class="col-12 d-flex gap-2"><button class="btn btn-primary">Lưu</button><a class="btn btn-outline-secondary" href="/nhanvien">Hủy</a></div>
+</form>
+
+<%- include('../partials/footer') %>

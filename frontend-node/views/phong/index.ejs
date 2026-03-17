@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3 crud-title">Quản lý Phòng</h2>
+
+<form class="row g-2 mb-4 crud-form" method="post" action="/phong">
+  <div class="col-md-2"><input class="form-control" name="maPhong" placeholder="Mã phòng" required /></div>
+  <div class="col-md-2"><input class="form-control" name="soPhong" placeholder="Số phòng" required /></div>
+  <div class="col-md-2"><input class="form-control" name="loaiPhong" placeholder="Loại phòng" required /></div>
+  <div class="col-md-2"><input class="form-control" name="sucChua" placeholder="Sức chứa" required /></div>
+  <div class="col-md-2"><input class="form-control" name="giaPhong" placeholder="Giá phòng" required /></div>
+  <div class="col-md-2"><input class="form-control" name="trangThai" placeholder="Trạng thái" value="ConCho" required /></div>
+  <div class="col-12"><button class="btn btn-primary">Thêm Phòng</button></div>
+</form>
+
+<div class="table-responsive crud-table-wrap">
+  <table class="table table-striped table-hover">
+    <thead><tr><th>Mã</th><th>Số phòng</th><th>Loại</th><th>Sức chứa</th><th>Giá</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+    <tbody>
+      <% items.forEach(i => { %>
+      <tr>
+        <td><%= i.maPhong %></td>
+        <td><%= i.soPhong %></td>
+        <td><%= i.loaiPhong %></td>
+        <td><%= i.sucChua %></td>
+        <td><%= i.giaPhong %></td>
+        <td><%= i.trangThai %></td>
+        <td>
+          <a class="btn btn-sm btn-outline-primary me-2" href="/phong/<%= i.maPhong %>/edit">Sửa</a>
+          <form method="post" action="/phong/<%= i.maPhong %>/delete">
+            <button class="btn btn-sm btn-outline-danger">Xóa</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>

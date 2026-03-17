@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+
+<section class="hero mx-auto auth-shell" style="max-width: 760px;">
+  <h1 class="h3 mb-2">Tạo tài khoản Sinh viên</h1>
+  <p class="text-muted mb-4">Tài khoản đăng ký sẽ có quyền SinhVien. Sau khi đăng ký thành công, hệ thống tự động đăng nhập.</p>
+
+  <% if (error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+
+  <form method="post" action="/register" class="row g-3 auth-form">
+    <div class="col-md-6">
+      <label class="form-label">Họ tên</label>
+      <input class="form-control" name="hoTen" value="<%= form?.hoTen || '' %>" required />
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Email</label>
+      <input class="form-control" name="email" type="email" value="<%= form?.email || '' %>" required />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Ngày sinh</label>
+      <input class="form-control" name="ngaySinh" type="date" value="<%= form?.ngaySinh || '' %>" required />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Giới tính</label>
+      <select class="form-select" name="gioiTinh" required>
+        <option value="Nam" <%= form?.gioiTinh === 'Nam' ? 'selected' : '' %>>Nam</option>
+        <option value="Nu" <%= form?.gioiTinh === 'Nu' ? 'selected' : '' %>>Nu</option>
+        <option value="Khac" <%= form?.gioiTinh === 'Khac' ? 'selected' : '' %>>Khac</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Số điện thoại</label>
+      <input class="form-control" name="soDienThoai" value="<%= form?.soDienThoai || '' %>" required />
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Mật khẩu</label>
+      <input class="form-control" name="matKhau" type="password" minlength="6" required />
+      <div class="form-text">Mật khẩu sẽ được dùng để đăng nhập.</div>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Xác nhận mật khẩu</label>
+      <input class="form-control" name="xacNhanMatKhau" type="password" minlength="6" required />
+    </div>
+    <div class="col-12 d-flex flex-wrap gap-2 pt-2">
+      <button class="btn btn-primary" type="submit">Đăng ký</button>
+      <a class="btn btn-outline-secondary" href="/login">Quay lại đăng nhập</a>
+    </div>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,15 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3 crud-title">Cập nhật Phòng</h2>
+
+<form class="row g-2 mb-4 crud-form" method="post" action="/phong/<%= item.maPhong %>/edit">
+  <div class="col-md-2"><input class="form-control" value="<%= item.maPhong %>" disabled /></div>
+  <div class="col-md-2"><input class="form-control" name="soPhong" value="<%= item.soPhong %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="loaiPhong" value="<%= item.loaiPhong %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="sucChua" value="<%= item.sucChua %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="giaPhong" value="<%= item.giaPhong %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="trangThai" value="<%= item.trangThai %>" required /></div>
+  <div class="col-12 d-flex gap-2"><button class="btn btn-primary">Lưu</button><a class="btn btn-outline-secondary" href="/phong">Hủy</a></div>
+</form>
+
+<%- include('../partials/footer') %>

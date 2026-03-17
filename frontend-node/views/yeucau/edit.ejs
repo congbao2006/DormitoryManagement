@@ -1,0 +1,13 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3 crud-title">Cập nhật Yêu cầu sửa chữa</h2>
+
+<form class="row g-2 mb-4 crud-form" method="post" action="/yeucau/<%= item.maYeuCau %>/edit">
+  <div class="col-md-2"><input class="form-control" value="<%= item.maYeuCau %>" disabled /></div>
+  <div class="col-md-5"><input class="form-control" name="moTa" value="<%= item.moTa %>" required /></div>
+  <div class="col-md-3"><input class="form-control" type="date" name="ngayYeuCau" value="<%= item.ngayYeuCau ? item.ngayYeuCau.split('T')[0] : '' %>" required /></div>
+  <div class="col-md-2"><input class="form-control" name="trangThai" value="<%= item.trangThai %>" required /></div>
+  <div class="col-12 d-flex gap-2"><button class="btn btn-primary">Lưu</button><a class="btn btn-outline-secondary" href="/yeucau">Hủy</a></div>
+</form>
+
+<%- include('../partials/footer') %>

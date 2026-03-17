@@ -1,0 +1,12 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3 crud-title">Cập nhật Tòa nhà</h2>
+
+<form class="row g-2 mb-4 crud-form" method="post" action="/toanha/<%= item.maToa %>/edit">
+  <div class="col-md-3"><input class="form-control" value="<%= item.maToa %>" disabled /></div>
+  <div class="col-md-5"><input class="form-control" name="tenToa" value="<%= item.tenToa %>" required /></div>
+  <div class="col-md-3"><input class="form-control" name="soTang" value="<%= item.soTang %>" required /></div>
+  <div class="col-12 d-flex gap-2"><button class="btn btn-primary">Lưu</button><a class="btn btn-outline-secondary" href="/toanha">Hủy</a></div>
+</form>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,33 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3 crud-title">Quản lý Tòa nhà</h2>
+
+<form class="row g-2 mb-4 crud-form" method="post" action="/toanha">
+  <div class="col-md-3"><input class="form-control" name="maToa" placeholder="Mã tòa" required /></div>
+  <div class="col-md-5"><input class="form-control" name="tenToa" placeholder="Tên tòa" required /></div>
+  <div class="col-md-3"><input class="form-control" name="soTang" placeholder="Số tầng" required /></div>
+  <div class="col-12"><button class="btn btn-primary">Thêm Tòa nhà</button></div>
+</form>
+
+<div class="table-responsive crud-table-wrap">
+  <table class="table table-striped table-hover">
+    <thead><tr><th>Mã</th><th>Tên tòa</th><th>Số tầng</th><th>Thao tác</th></tr></thead>
+    <tbody>
+      <% items.forEach(i => { %>
+      <tr>
+        <td><%= i.maToa %></td>
+        <td><%= i.tenToa %></td>
+        <td><%= i.soTang %></td>
+        <td>
+          <a class="btn btn-sm btn-outline-primary me-2" href="/toanha/<%= i.maToa %>/edit">Sửa</a>
+          <form method="post" action="/toanha/<%= i.maToa %>/delete">
+            <button class="btn btn-sm btn-outline-danger">Xóa</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>
